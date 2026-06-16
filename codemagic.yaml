@@ -1,0 +1,16 @@
+workflows:
+  android-release:
+    name: The Fragrance App - Android Build
+    max_build_duration: 60
+    environment:
+      java: 17
+    scripts:
+      - name: Set gradlew permissions
+        script: chmod +x android/gradlew
+      - name: Build Android App Bundle
+        script: |
+          cd android
+          ./gradlew bundleDebug --no-daemon
+    artifacts:
+      - android/app/build/outputs/bundle/debug/*.aab
+      - android/app/build/outputs/apk/debug/*.apk
