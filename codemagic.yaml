@@ -3,13 +3,15 @@ workflows:
     name: The Fragrance App - Android Build
     max_build_duration: 60
     environment:
-      java: 17
+      java: 21
       node: 22
     scripts:
       - name: Install Node dependencies
         script: npm install
       - name: Sync Capacitor
         script: npx cap sync android
+      - name: Fix local.properties
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
       - name: Set gradlew permissions
         script: chmod +x android/gradlew
       - name: Build Android App Bundle
