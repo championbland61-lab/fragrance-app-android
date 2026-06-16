@@ -1,0 +1,13 @@
+{
+  "appId": "com.thefragranceapp.app",
+  "appName": "The Fragrance App",
+  "webDir": "out",
+  "server": {
+    "url": "https://www.thefragranceapp.com",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#000000"
+  }
+}
