@@ -6,8 +6,7 @@
   "dependencies": {
     "@capacitor/android": "^8.4.0",
     "@capacitor/cli": "^8.4.0",
-    "@capacitor/core": "^8.4.0",
-    "stripe": "^14.0.0"
+    "@capacitor/core": "^8.4.0"
   },
   "engines": {
     "node": "18.x"
