@@ -5,6 +5,8 @@ workflows:
     environment:
       java: 21
       node: 22
+      groups:
+        - default
     scripts:
       - name: Install Node dependencies
         script: npm install
@@ -14,10 +16,17 @@ workflows:
         script: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
       - name: Set gradlew permissions
         script: chmod +x android/gradlew
-      - name: Build Android App Bundle
+      - name: Decode keystore
+        script: |
+          echo $CM_KEYSTORE | base64 --decode > /tmp/release.keystore
+      - name: Build signed release AAB
         script: |
           cd android
-          ./gradlew bundleDebug --no-daemon
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=/tmp/release.keystore \
+            -Pandroid.injected.signing.store.password=$CM_KEYSTORE_PASSWORD \
+            -Pandroid.injected.signing.key.alias=$CM_KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD \
+            --no-daemon
     artifacts:
-      - android/app/build/outputs/bundle/debug/*.aab
-      - android/app/build/outputs/apk/debug/*.apk
+      - android/app/build/outputs/bundle/release/*.aab
