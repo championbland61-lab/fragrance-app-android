@@ -18,7 +18,7 @@ workflows:
         script: chmod +x android/gradlew
       - name: Decode keystore
         script: |
-          python3 -c "import base64, os; open('/tmp/release.keystore', 'wb').write(base64.b64decode(os.environ['CM_KEYSTORE']+ '=='))"
+         python3 -c "import base64, os; open('/tmp/release.keystore', 'wb').write(base64.b64decode(os.environ['CM_KEYSTORE']))"
       - name: Build signed release AAB
         script: |
           cd android
